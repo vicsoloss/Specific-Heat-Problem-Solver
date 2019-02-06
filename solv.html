@@ -1,0 +1,48 @@
+<script src="algebra-0.2.6.min.js"></script>
+<script>
+    var Fraction = algebra.Fraction;
+    var Expression = algebra.Expression;
+    var Equation = algebra.Equation;
+
+    var eqa = algebra.parse("ma * sa *ta + mb * sb *tb = ma * sa * tf + mb * sb * tf");
+    console.log(eqa.toString());
+    function calculate(){
+        var mass1 = document.getElementById("mass1").value;
+        var mass2 = document.getElementById("mass2").value;
+        var specific_heat1 = document.getElementById("speh1").value;
+        var specific_heat2 = document.getElementById("speh2").value;
+        var temprature1 = document.getElementById("temp1").value;
+        var temprature2 = document.getElementById("temp2").value;
+        var temprature_final = document.getElementById("tempf").value;
+        var varlist = [mass1, specific_heat1, temprature1, mass2, specific_heat2, temprature2, temprature_final];
+        var empty_vars = [];
+        for (x in varlist){
+            if (!varlist[x]){
+                empty_vars.push(x)
+            };
+        };
+        if (empty_vars.length == "1" || empty_vars.length == "0"){
+            console.log('bravo');
+        } else {
+            console.log('this aint it')
+            console.log(empty_vars)
+        }
+        /*if (empty_vars.length = 1){
+            console.log('gr8 job');
+            console.log(empty_vars);
+
+
+        } else {console.log('incorrect number of unkown variables');console.log(empty_vars.length);}*/
+    }
+</script>
+
+<form>
+  Mass 1: <input type="text" id="mass1"><br>
+  Specific Heat 1: <input type="text" id="speh1"><br>
+  Temprature 1: <input type="text" id="temp1"><br>
+  Mass 2: <input type="text" id="mass2"><br>
+  Specific Heat 2: <input type="text" id="speh2"><br>
+  Temprature 2: <input type="text" id="temp2"><br>
+  Temprature Final: <input type="text" id="tempf"><br>
+  <input type="button" value="Submit form" onclick=calculate()>
+</form>
