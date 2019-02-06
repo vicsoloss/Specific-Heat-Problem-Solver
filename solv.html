@@ -1,4 +1,12 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
 <script src="algebra-0.2.6.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
     var Fraction = algebra.Fraction;
     var Expression = algebra.Expression;
@@ -40,7 +48,7 @@
         empty_vars = empty_find(varlist)
         if(empty_vars.length == 1){
         var solution = get_solution(varlist,empty_vars)
-        document.getElementById("result").innerHTML = solution.valueOf()
+        document.getElementById("result").innerHTML = "The unkown value is " + solution.valueOf()
         } else {
             varibale_number_error(empty_vars)
         }
@@ -48,15 +56,33 @@
     }
 
 </script>
+<h1 class="header center teal-text">Specific Heat Problem Solver</h1>
+<div class='container'>
+<div class="row">
+<div class="col teal accent center s12"><span class="flow-text white-text">Input 6 values and leave one unknown</span></div>
+</div>
 
-<form>
-  Mass 1: <input type="number" id="mass1" placeholder="unknown"><br>
-  Specific Heat 1: <input type="number" id="speh1" placeholder="unknown"><br>
-  Temprature 1: <input type="number" id="temp1" placeholder="unknown"><br>
-  Mass 2: <input type="number" id="mass2" placeholder="unknown"><br>
-  Specific Heat 2: <input type="number" id="speh2" placeholder="unknown"><br>
-  Temprature 2: <input type="number" id="temp2" placeholder="unknown"><br>
-  Temprature Final: <input type="number" id="tempf" placeholder="unknown"><br>
-  <input type="button" value="Submit form" onclick=calculate()>
-</form>
-<div id="result"></div>
+<div class="row">
+<div class="col s6">
+   <div class="input-field"><label for="mass1">Mass 1</label><input type="number" id="mass1" placeholder="unknown"><br></div>
+    <div class="input-field"><label for="speh1">Specific Heat 1</label><input type="number" id="speh1" placeholder="unknown"><br></div>
+  <div class="input-field"><label for="temp1">Temprature 1</label><input type="number" id="temp1" placeholder="unknown"><br></div>
+  </div>
+  <div class="col s6">
+  <div class="input-field"><label for="mass2">Mass 2</label><input type="number" id="mass2" placeholder="unknown"><br></div>
+   <div class="input-field"><label for="speh2">Specific Heat 2</label><input type="number" id="speh2" placeholder="unknown"><br></div>
+  <div class="input-field"><label for="temp2">Temprature 2</label><input type="number" id="temp2" placeholder="unknown"><br></div>
+  </div>
+<div class="col s6 offset-s3"
+ <label for="tempf">Temprature Final</label><input type="number" id="tempf" placeholder="unknown"><br>
+ </div>
+
+<div class=" col s12 center-align"><br>
+ <a class="btn-large waves-effect waves teal accent-4 center" onclick=calculate()>Calculate</a>
+</div>
+</div>
+<div class="row">
+<div id="result" class="teal-text col s10 offset-s1 center" style="font-size:4vw"></div>
+</div></div>
+</body>
+</html>
