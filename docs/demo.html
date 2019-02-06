@@ -1,0 +1,91 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<script src="algebra-0.2.6.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    var Fraction = algebra.Fraction;
+    var Expression = algebra.Expression;
+    var Equation = algebra.Equation;
+
+    function empty_find(varlist){
+        var empty_vars = [];
+        //checks for empty vars and adds them to empty vars
+        for (x in varlist){
+            if (!varlist[x]){
+                empty_vars.push(x)
+            };
+        };
+        return empty_vars
+
+
+    }
+    function get_solution(varlist, empty_vars){
+        varlist[empty_vars[0]] = "x"
+        expres_uparsed = varlist[0] + "*" + varlist[1] + "*" + varlist[2] + "+" + varlist[3] + "*" + varlist[4] + "*" + varlist[5] + "=" + varlist[0] + "*" + varlist[1] + "*" + varlist[6] + "+" + varlist[3] + "*" + varlist[4] + "*" + varlist[6]
+        expres = algebra.parse(expres_uparsed)
+        solution = expres.solveFor('x')
+        return solution
+
+    }
+    function varibale_number_error(empty_vars){
+        document.getElementById("result").innerHTML = "Leave only one field blank"
+    }
+    function calculate(){
+        var mass1 = document.getElementById("mass1").value;
+        var mass2 = document.getElementById("mass2").value;
+        var specific_heat1 = document.getElementById("speh1").value;
+        var specific_heat2 = document.getElementById("speh2").value;
+        var temprature1 = document.getElementById("temp1").value;
+        var temprature2 = document.getElementById("temp2").value;
+        var temprature_final = document.getElementById("tempf").value;
+        var varlist = [mass1, specific_heat1, temprature1, mass2, specific_heat2, temprature2, temprature_final];
+
+        empty_vars = empty_find(varlist)
+        if(empty_vars.length == 1){
+        var solution = get_solution(varlist,empty_vars)
+        document.getElementById("result").innerHTML = "The unkown value is " + solution.valueOf()
+        } else {
+            varibale_number_error(empty_vars)
+        }
+
+    }
+
+</script>
+<h1 class="header center teal-text">Specific Heat Problem Solver</h1>
+<div class='container white'>
+<div class="row">
+<div class="col teal accent center s12"><span class="flow-text white-text">Input 6 values and leave one unknown</span></div>
+</div>
+<main>
+<div class="row">
+<div class="col s6">
+   <div class="input-field"><label for="mass1">Mass 1</label><input type="number" id="mass1" placeholder="unknown"><br></div>
+    <div class="input-field"><label for="speh1">Specific Heat 1</label><input type="number" id="speh1" placeholder="unknown"><br></div>
+  <div class="input-field"><label for="temp1">Temprature 1</label><input type="number" id="temp1" placeholder="unknown"><br></div>
+  </div>
+  <div class="col s6">
+  <div class="input-field"><label for="mass2">Mass 2</label><input type="number" id="mass2" placeholder="unknown"><br></div>
+   <div class="input-field"><label for="speh2">Specific Heat 2</label><input type="number" id="speh2" placeholder="unknown"><br></div>
+  <div class="input-field"><label for="temp2">Temprature 2</label><input type="number" id="temp2" placeholder="unknown"><br></div>
+  </div>
+<div class="col s6 offset-s3"
+ <label for="tempf">Temprature Final</label><input type="number" id="tempf" placeholder="unknown"><br>
+ </div>
+
+<div class=" col s12 center-align"><br>
+ <a class="btn-large waves-effect waves teal accent-4 center" style="font-size:100%" onclick=calculate()><strong>Calculate</strong></a>
+</div>
+</div>
+<div class="row">
+<div id="result" class="teal-text col s10 offset-s1 center" style="font-size:3vw"></div>
+</div></div>
+</main>
+<div style="position:initial;bottom:0;left:0;width:100%;padding:0px;font-size:120%">
+    <div class="teal white-text"><div class="containter center" style="padding:.2vw">Made by Pandemic1617</div></div>
+</body>
+</html>
