@@ -4,8 +4,29 @@
     var Expression = algebra.Expression;
     var Equation = algebra.Equation;
 
-    var eqa = algebra.parse("ma * sa *ta + mb * sb *tb = ma * sa * tf + mb * sb * tf");
-    console.log(eqa.toString());
+    function empty_find(varlist){
+        var empty_vars = [];
+        //checks for empty vars and adds them to empty vars
+        for (x in varlist){
+            if (!varlist[x]){
+                empty_vars.push(x)
+            };
+        };
+        return empty_vars
+
+
+    }
+    function get_solution(varlist, empty_vars){
+        varlist[empty_vars[0]] = "x"
+        expres_uparsed = varlist[0] + "*" + varlist[1] + "*" + varlist[2] + "+" + varlist[3] + "*" + varlist[4] + "*" + varlist[5] + "=" + varlist[0] + "*" + varlist[1] + "*" + varlist[6] + "+" + varlist[3] + "*" + varlist[4] + "*" + varlist[6]
+        expres = algebra.parse(expres_uparsed)
+        solution = expres.solveFor('x')
+        return solution
+
+    }
+    function varibale_number_error(empty_vars){
+        document.getElementById("result").innerHTML = "Leave only one field blank"
+    }
     function calculate(){
         var mass1 = document.getElementById("mass1").value;
         var mass2 = document.getElementById("mass2").value;
@@ -15,34 +36,27 @@
         var temprature2 = document.getElementById("temp2").value;
         var temprature_final = document.getElementById("tempf").value;
         var varlist = [mass1, specific_heat1, temprature1, mass2, specific_heat2, temprature2, temprature_final];
-        var empty_vars = [];
-        for (x in varlist){
-            if (!varlist[x]){
-                empty_vars.push(x)
-            };
-        };
-        if (empty_vars.length == "1" || empty_vars.length == "0"){
-            console.log('bravo');
+
+        empty_vars = empty_find(varlist)
+        if(empty_vars.length == 1){
+        var solution = get_solution(varlist,empty_vars)
+        document.getElementById("result").innerHTML = solution.valueOf()
         } else {
-            console.log('this aint it')
-            console.log(empty_vars)
+            varibale_number_error(empty_vars)
         }
-        /*if (empty_vars.length = 1){
-            console.log('gr8 job');
-            console.log(empty_vars);
 
-
-        } else {console.log('incorrect number of unkown variables');console.log(empty_vars.length);}*/
     }
+
 </script>
 
 <form>
-  Mass 1: <input type="text" id="mass1"><br>
-  Specific Heat 1: <input type="text" id="speh1"><br>
-  Temprature 1: <input type="text" id="temp1"><br>
-  Mass 2: <input type="text" id="mass2"><br>
-  Specific Heat 2: <input type="text" id="speh2"><br>
-  Temprature 2: <input type="text" id="temp2"><br>
-  Temprature Final: <input type="text" id="tempf"><br>
+  Mass 1: <input type="number" id="mass1" placeholder="unknown"><br>
+  Specific Heat 1: <input type="number" id="speh1" placeholder="unknown"><br>
+  Temprature 1: <input type="number" id="temp1" placeholder="unknown"><br>
+  Mass 2: <input type="number" id="mass2" placeholder="unknown"><br>
+  Specific Heat 2: <input type="number" id="speh2" placeholder="unknown"><br>
+  Temprature 2: <input type="number" id="temp2" placeholder="unknown"><br>
+  Temprature Final: <input type="number" id="tempf" placeholder="unknown"><br>
   <input type="button" value="Submit form" onclick=calculate()>
 </form>
+<div id="result"></div>
